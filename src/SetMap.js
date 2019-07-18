@@ -11,7 +11,7 @@ var accessibleLayers = [
     })
 ];
 var accessibleView = new ol.View({
-    center: mapSettiings.mapCenter,
+    center: mapSettiings.mapCenter,//[0,0]
     zoom: mapSettiings.mapZoom
 });
 var map = new ol.Map({
