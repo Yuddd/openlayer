@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="E:\yuduo\v5.3.0\css\ol.css" type="text/css">
+    <style>
+      .map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="E:\yuduo\v5.3.0\build\ol.js"></script><!-- 包含openlayers -->
+    <title>interaction</title>
+  </head>
+  <body>
+    <h2>My Map interaction效果</h2>
+    <div id="map" class="map"></div><!-- 包含地图 -->
+<script>
+    var map = new ol.Map({
+        layers: [
+            new ol.layer.Vector({
+                //这是一个能选择的地图源
+                source: new ol.source.Vector({
+                    url: 'https://openlayers.org/en/v5.3.0/examples/data/geojson/countries.geojson',
+                    format: new ol.format.GeoJSON()
+                })
+            })
+        ],
+        interactions:[//交互
+            new ol.interaction.Select(),//选择
+            new ol.interaction.DragBox({
+                condition: ol.events.condition.platformModifierKeyOnly
+            })//画框
+        ],
+        target: 'map',
+        view: new ol.View({
+            center: [0, 0],
+            zoom: 2
+        })
+    });
+</script>
+  </body>
+</html>

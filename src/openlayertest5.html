@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="E:\yuduo\v5.3.0\css\ol.css" type="text/css">
+    <style>
+      .map {
+        height: 800px;
+        width: 100%;
+      }
+    </style>
+    <script src="E:\yuduo\v5.3.0\build\ol.js"></script><!-- 包含openlayers -->
+    <title>AicGis瓦片服务器图源</title>
+  </head>
+  <body>
+    <h2>My MapAicGis瓦片服务器图源</h2>
+    <div id="map" class="map"></div><!-- 包含地图 -->
+    <script>
+    new ol.Map({
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.BingMaps({
+                    key: 'AkjzA7OhS4MIBjutL21bkAop7dc41HSE0CNTR5c6HJy8JKc7U9U9RveWJrylD3XJ',
+                    imagerySet: 'Road'
+                })
+            }),
+            new ol.layer.Tile({
+                source:  new ol.source.TileArcGISRest({
+                    ratio: 1,
+                    params: {},
+                    url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StateCityHighway_USA/MapServer'
+                })
+            })
+        ],
+        target: 'map',
+        view: new ol.View({
+            center: [0, 0],
+            zoom: 2
+        })
+    });
+</script>
+  </body>
+</html>
