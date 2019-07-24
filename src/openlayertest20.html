@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="E:\yuduo\v5.3.0\css\ol.css" type="text/css">
+    <script src="E:\yuduo\v5.3.0\build\ol.js"></script><!-- 包含openlayers -->
+    <title>OpenLayers</title>
+ <style type="text/css">
+ 	#ss{
+ 	background: url("../src/img/1.png");
+ 	}
+ </style>
+  </head>
+<h3>离线瓦片</h3>
+<div id="ss" style="width: 30px;height: 30px;border: 1px solid blue;" ></div>
+<div id="map" style="width: 100%"></div>
+<script type="text/javascript">
+
+    // 地图设置中心，设置到成都，在本地离线地图 offlineMapTiles刚好有一张zoom为4的成都瓦片
+    var center = ol.proj.transform([104.06667, 30.66667], 'EPSG:4326', 'EPSG:3857');
+
+    //创建地图
+    var map = new ol.Map({
+        view: new ol.View({ 
+            center: center,
+            zoom: 4 
+        }),
+        target: 'map'
+    });
+
+    // 添加一个使用离线瓦片地图的层
+    var offlineMapLayer = new ol.layer.Tile({
+        source: new ol.source.XYZ({
+            // 设置本地离线瓦片所在路径，由于例子里面只有一张瓦片，页面显示时就只看得到一张瓦片。
+            url: '../src/05-04/offlineMapTiles/4/12/6.png'
+        })
+    });
+
+    map.addLayer(offlineMapLayer);
+</script>
+</body>
+</html>

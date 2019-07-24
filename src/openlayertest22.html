@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="E:\yuduo\v5.3.0\css\ol.css" type="text/css">
+    <script src="E:\yuduo\v5.3.0\build\ol.js"></script><!-- 包含openlayers -->
+    <title>OpenLayers</title>
+  </head>
+<h3>离线瓦片</h3>
+<div id="map" style="width: 100%"></div>
+<script type="text/javascript">
+
+    //创建地图
+    var map = new ol.Map({
+        layers: [
+            // 底图用Open Street Map 地图
+            new ol.layer.Tile({
+                source: new ol.source.OSM()
+            }),
+            // 再加载一个geojson的矢量地图
+            new ol.layer.Vector({
+                source: new ol.source.Vector({
+                    url: '../src/data/geojson/line-samples.geojson',     // 地图来源
+                    format: new ol.format.GeoJSON()    // 解析矢量地图的格式化类
+                })
+            })
+        ],
+        view: new ol.View({ 
+            center: [-72.980624870461128, 48.161307640513321],
+            zoom: 8,
+            projection: 'EPSG:4326'
+        }),
+        target: 'map'
+    });
+</script>
+</body>
+</html>

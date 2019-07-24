@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="E:\yuduo\v5.3.0\css\ol.css" type="text/css">
+    <script src="E:\yuduo\v5.3.0\build\ol.js"></script><!-- 包含openlayers -->
+    <title>OpenLayers</title>
+  </head>
+<h3>离线瓦片</h3>
+<div id="map" style="width: 100%"></div>
+<div>矢量地图Feature总数： <span id="count"></span></div>
+<script type="text/javascript">
+
+    //创建地图
+    var map = new ol.Map({
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM()
+            })
+        ],
+        view: new ol.View({ 
+            center: [-72.980624870461128, 48.161307640513321],
+            zoom: 8,
+            projection: 'EPSG:4326'
+        }),
+        target: 'map'
+    });
+
+    var vectorLayer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            url: '/data/geojson/line-samples.geojson', 
+            format: new ol.format.GeoJSON()
+        })
+    });
+
+    // 因为是异步加载，所以要采用事件监听的方式来判定是否加载完成
+    var listenerKey = vectorLayer.getSource().on('change', function(){
+        if (vectorLayer.getSource().getState() === 'ready') {    // 判定是否加载完成
+            document.getElementById('count').innerHTML = vectorLayer.getSource().getFeatures().length;
+            vectorLayer.getSource().unByKey(listenerKey); // 注销监听器
+        }
+    });
+
+    map.addLayer(vectorLayer);
+    // 如果在此处调用vectorLayer.getSource().getFeatures()是完全有可能获取不到任何Feature的，这是常犯错误
+</script>
+</body>
+</html>
